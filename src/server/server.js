@@ -1,6 +1,7 @@
 import pkg from 'johnny-five'
 import express from "express";
 import bodyParser from "body-parser";
+import {Tracker} from "../model/tracker.js";
 
 const { Board, LCD } = pkg;
 
@@ -8,27 +9,6 @@ const board = new Board();
 
 const app = express();
 app.use(bodyParser.json())
-
-class Tracker {
-    playerList = []
-
-    addPlayer = (player) => {
-        this.playerList.push(player)
-        this.playerList.sort((a, b) => {
-            if (a.initiative > b.initiative) {
-                return -1
-            } else if (a.initiative < b.initiative) {
-                return 1
-            } else {
-                return 0
-            }
-        })
-    }
-    currentPlayer = () => {
-        const [current, ...rest] = this.playerList
-        return current
-    };
-}
 
 board.on('ready', () => {
     const tracker = new Tracker()
