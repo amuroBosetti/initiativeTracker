@@ -9,7 +9,29 @@ const board = new Board();
 const app = express();
 app.use(bodyParser.json())
 
+class Tracker {
+    playerList = []
+
+    addPlayer = (player) => {
+        this.playerList.push(player)
+        this.playerList.sort((a, b) => {
+            if (a.initiative > b.initiative) {
+                return -1
+            } else if (a.initiative < b.initiative) {
+                return 1
+            } else {
+                return 0
+            }
+        })
+    }
+    currentPlayer = () => {
+        const [current, ...rest] = this.playerList
+        return current
+    };
+}
+
 board.on('ready', () => {
+    const tracker = new Tracker()
     const lcd = new LCD({
         controller: "PCF8574"
     });
@@ -25,8 +47,10 @@ board.on('ready', () => {
         res.send();
     });
 
-    app.post("/users", (req, res) => {
-        const { name, color, initiative } = req.body;
+    app.post("/players", (req, res) => {
+        lcd.clear()
+        tracker.addPlayer(req.body);
+        const {name, initiative, color} = tracker.currentPlayer();
         lcd.print(`${name}: ${initiative} - ${color}`);
         res.status(200)
         res.send();
