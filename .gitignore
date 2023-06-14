@@ -131,3 +131,4 @@ dist
 
 #Webstorm config
 .idea/
+/react-app/build/

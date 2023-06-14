@@ -1,4 +1,4 @@
-import {Tracker} from "../../src/model/tracker.js";
+import Tracker from "../../model/tracker.js";
 
 describe('Tracker', () => {
 
