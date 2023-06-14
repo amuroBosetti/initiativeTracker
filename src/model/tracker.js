@@ -1,10 +1,10 @@
 export class Tracker {
-    playerList = []
+    playerList = [];
 
     currentPlayerIndex = 0;
 
     addPlayer = (player) => {
-        this.playerList.push(player)
+        this.playerList.push(player);
         this.playerList.sort((a, b) => {
             if (a.initiative > b.initiative) {
                 return -1;
@@ -13,8 +13,8 @@ export class Tracker {
             } else {
                 return 0;
             }
-        })
-    }
+        });
+    };
     currentPlayer = () => {
         return this.playerList[this.currentPlayerIndex];
     };
