@@ -1,4 +1,4 @@
-export class Tracker {
+export default class Tracker {
     playerList = []
 
     currentPlayerIndex = 0;

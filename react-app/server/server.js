@@ -1,9 +1,15 @@
 import pkg from 'johnny-five'
 import express from "express";
 import bodyParser from "body-parser";
-import {Tracker} from "../model/tracker.js";
+import path from "path";
+import {dirname} from "path";
+import {fileURLToPath} from 'url';
+import Tracker from "../model/tracker.js";
 
-const { Board, LCD } = pkg;
+const {Board, LCD} = pkg;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const board = new Board();
 
@@ -16,6 +22,9 @@ board.on('ready', () => {
         controller: "PCF8574"
     });
     lcd.on()
+
+    app.use(express.static(path.join(__dirname, "..", "build")));
+    app.use(express.static("public"));
 
     app.listen(3000, () => {
         console.log("Listening on port 3000")
@@ -35,6 +44,10 @@ board.on('ready', () => {
         res.status(200)
         res.send();
     });
+
+    app.get("/admin", (req, res) => {
+        res.sendFile(path.join(__dirname, "..", "build", "index.html"));
+    })
 
     board.repl.inject({
         lcd: lcd
