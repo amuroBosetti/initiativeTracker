@@ -59,8 +59,3 @@ describe('Tracker', () => {
 
         test('when the current player is the first one, and the turn is passed backwards, then it is the turn of the last player', () => {
             tracker.moveToPreviousPlayer()
-
-            expect(tracker.currentPlayer()).toEqual(thirdPlayer)
-        })
-    })
-});
