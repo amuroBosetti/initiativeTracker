@@ -20,11 +20,13 @@ export default class Tracker {
     };
 
     moveToNextPlayer() {
-        if (this.currentPlayerIndex === this.playerList.length) {
+        if (this.currentPlayerIndex === this.playerList.length - 1) {
             this.currentPlayerIndex = 0;
         } else {
             this.currentPlayerIndex++;
         }
+        console.log(this.playerList)
+        console.log(this.currentPlayerIndex)
     }
 
     moveToPreviousPlayer() {
@@ -33,5 +35,7 @@ export default class Tracker {
         } else {
             this.currentPlayerIndex--;
         }
+        console.log(this.playerList)
+        console.log(this.currentPlayerIndex)
     }
 }

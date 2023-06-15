@@ -34,13 +34,17 @@ describe('Tracker', () => {
     });
 
     describe('with a tracker which already has three players', () => {
-        const tracker = new Tracker();
+        let tracker;
         const firstPlayer = {name: "Juan", initiative: 20, color: "Red"}
         const secondPlayer = {name: "Marcos", initiative: 15, color: "Green"}
         const thirdPlayer = {name: "Belu", initiative: 10, color: "Pink"}
-        tracker.addPlayer(firstPlayer)
-        tracker.addPlayer(secondPlayer)
-        tracker.addPlayer(thirdPlayer)
+
+        beforeEach(() => {
+            tracker = new Tracker();
+            tracker.addPlayer(firstPlayer)
+            tracker.addPlayer(secondPlayer)
+            tracker.addPlayer(thirdPlayer)
+        })
 
         test('when the curren players turn is passed, then it is the turn of the current player', () => {
             tracker.moveToNextPlayer()
