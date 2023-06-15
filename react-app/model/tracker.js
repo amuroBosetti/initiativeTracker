@@ -26,7 +26,6 @@ export default class Tracker {
             this.currentPlayerIndex++;
         }
     }
-
     moveToPreviousPlayer() {
         if (this.currentPlayerIndex === 0) {
             this.currentPlayerIndex = this.playerList.length - 1;
