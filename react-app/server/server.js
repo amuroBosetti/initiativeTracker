@@ -4,9 +4,9 @@ import bodyParser from "body-parser";
 import path from "path";
 import {dirname} from "path";
 import {fileURLToPath} from 'url';
-import Tracker from "../model/tracker.js";
+import tracker from "./model/tracker.js";
 
-const {Board, LCD} = pkg;
+const {Board, LCD, Button} = pkg;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -16,18 +16,25 @@ const board = new Board();
 const app = express();
 app.use(bodyParser.json())
 
+const refreshScreen = (lcd, tracker) => {
+    lcd.clear()
+    const {name, initiative, color} = tracker.currentPlayer();
+    lcd.print(`${name}: ${initiative} - ${color}`);
+};
+
 board.on('ready', () => {
-    const tracker = new Tracker()
     const lcd = new LCD({
         controller: "PCF8574"
     });
+    const forwardButton = new Button({pin: 3, isPullup: true})
+    const backButton = new Button({pin: 4, isPullup: true})
     lcd.on()
 
     app.use(express.static(path.join(__dirname, "..", "build")));
     app.use(express.static("public"));
 
-    app.listen(3000, () => {
-        console.log("Listening on port 3000")
+    app.listen(8000, () => {
+        console.log("Listening on port 8000")
     })
 
     app.get("/", (req, res) => {
@@ -37,16 +44,29 @@ board.on('ready', () => {
     });
 
     app.post("/players", (req, res) => {
-        lcd.clear()
         tracker.addPlayer(req.body);
-        const {name, initiative, color} = tracker.currentPlayer();
-        lcd.print(`${name}: ${initiative} - ${color}`);
+        refreshScreen(lcd, tracker);
         res.status(200)
         res.send();
     });
 
+    app.get("/players", (req, res) => {
+        res.header("Content-Type", "application/json")
+        res.send(tracker.characterList)
+    })
+
     app.get("/admin", (req, res) => {
         res.sendFile(path.join(__dirname, "..", "build", "index.html"));
+    })
+
+    forwardButton.on("press", () => {
+        tracker.moveToNextPlayer()
+        refreshScreen(lcd, tracker)
+    })
+
+    backButton.on("press", () => {
+        tracker.moveToPreviousPlayer()
+        refreshScreen(lcd, tracker)
     })
 
     board.repl.inject({
