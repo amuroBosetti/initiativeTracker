@@ -1,4 +1,4 @@
-class Tracker {
+export class Tracker {
     characters = [];
     currentPlayerIndex = 0;
 
@@ -29,7 +29,7 @@ class Tracker {
 
     moveToPreviousPlayer() {
         if (this.currentPlayerIndex === 0) {
-            this.currentPlayerIndex = this.playerList.length - 1;
+            this.currentPlayerIndex = this.characters.length - 1;
         } else {
             this.currentPlayerIndex--;
         }

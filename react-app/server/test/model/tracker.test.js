@@ -1,4 +1,4 @@
-import Tracker from "../../model/tracker.js";
+import { Tracker } from "../../model/tracker.js";
 
 describe("Tracker", () => {
     test("when a new player is added to an empty tracker, then that player is the current one", () => {
