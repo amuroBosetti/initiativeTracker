@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 import path from "path";
 import {dirname} from "path";
 import {fileURLToPath} from 'url';
-import Tracker from "./model/tracker.js";
+import tracker from "./model/tracker.js";
 
 const {Board, LCD, Button} = pkg;
 
@@ -23,7 +23,6 @@ const refreshScreen = (lcd, tracker) => {
 };
 
 board.on('ready', () => {
-    const tracker = new Tracker()
     const lcd = new LCD({
         controller: "PCF8574"
     });
@@ -34,8 +33,8 @@ board.on('ready', () => {
     app.use(express.static(path.join(__dirname, "..", "build")));
     app.use(express.static("public"));
 
-    app.listen(3000, () => {
-        console.log("Listening on port 3000")
+    app.listen(8000, () => {
+        console.log("Listening on port 8000")
     })
 
     app.get("/", (req, res) => {
@@ -50,6 +49,11 @@ board.on('ready', () => {
         res.status(200)
         res.send();
     });
+
+    app.get("/players", (req, res) => {
+        res.header("Content-Type", "application/json")
+        res.send(tracker.characterList)
+    })
 
     app.get("/admin", (req, res) => {
         res.sendFile(path.join(__dirname, "..", "build", "index.html"));
