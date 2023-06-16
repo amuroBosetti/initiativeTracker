@@ -4,7 +4,7 @@ import pkg from "johnny-five";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import tracker from "./model/tracker.js";
-import charactersRouter from "./routes/characters.js";
+import charactersRouter from "./routers/characters.js";
 
 const { Board, LCD, Button } = pkg;
 
