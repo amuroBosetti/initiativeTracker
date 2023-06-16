@@ -1,75 +1,58 @@
-import pkg from 'johnny-five'
-import express from "express";
 import bodyParser from "body-parser";
-import path from "path";
-import {dirname} from "path";
-import {fileURLToPath} from 'url';
+import express from "express";
+import pkg from "johnny-five";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
 import tracker from "./model/tracker.js";
+import charactersRouter from "./routes/characters.js";
 
-const {Board, LCD, Button} = pkg;
+const { Board, LCD, Button } = pkg;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const board = new Board();
+const board = new Board({ port: "/dev/ttyACM0" });
 
 const app = express();
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+app.use("/characters", charactersRouter);
 
 const refreshScreen = (lcd, tracker) => {
-    lcd.clear()
-    const {name, initiative, color} = tracker.currentPlayer();
+    lcd.clear();
+    const { name, initiative, color } = tracker.currentPlayer();
     lcd.print(`${name}: ${initiative} - ${color}`);
 };
 
-board.on('ready', () => {
+board.on("ready", () => {
     const lcd = new LCD({
-        controller: "PCF8574"
+        controller: "PCF8574",
     });
-    const forwardButton = new Button({pin: 3, isPullup: true})
-    const backButton = new Button({pin: 4, isPullup: true})
-    lcd.on()
+    const forwardButton = new Button({ pin: 3, isPullup: true });
+    const backButton = new Button({ pin: 4, isPullup: true });
+    lcd.on();
 
     app.use(express.static(path.join(__dirname, "..", "build")));
     app.use(express.static("public"));
 
     app.listen(8000, () => {
-        console.log("Listening on port 8000")
-    })
-
-    app.get("/", (req, res) => {
-        lcd.print("Holis");
-        res.status(200)
-        res.send();
+        console.log("Listening on port 8000");
     });
-
-    app.post("/players", (req, res) => {
-        tracker.addPlayer(req.body);
-        refreshScreen(lcd, tracker);
-        res.status(200)
-        res.send();
-    });
-
-    app.get("/players", (req, res) => {
-        res.header("Content-Type", "application/json")
-        res.send(tracker.characterList)
-    })
 
     app.get("/admin", (req, res) => {
         res.sendFile(path.join(__dirname, "..", "build", "index.html"));
-    })
+    });
 
     forwardButton.on("press", () => {
-        tracker.moveToNextPlayer()
-        refreshScreen(lcd, tracker)
-    })
+        tracker.moveToNextCharacter();
+        refreshScreen(lcd, tracker);
+    });
 
     backButton.on("press", () => {
-        tracker.moveToPreviousPlayer()
-        refreshScreen(lcd, tracker)
-    })
+        tracker.moveToPreviousPlayer();
+        refreshScreen(lcd, tracker);
+    });
 
     board.repl.inject({
-        lcd: lcd
+        lcd: lcd,
     });
-})
+});
