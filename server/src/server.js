@@ -1,4 +1,5 @@
 import bodyParser from "body-parser";
+import cors from "cors";
 import express from "express";
 import pkg from "johnny-five";
 import tracker from "./model/tracker.js";
@@ -11,6 +12,7 @@ const board = new Board();
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
 app.use("/players", charactersRouter);
 
 board.on("ready", () => {

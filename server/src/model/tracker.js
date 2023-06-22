@@ -2,9 +2,20 @@ export class Tracker {
     characters = [];
     currentPlayerIndex = 0;
 
-    addPlayer = (player) => {
-        this.characters.push(player);
-        this.characters.sort((a, b) => {
+    addCharacter = (character) => {
+        this.characterList.push(character);
+        this.orderList();
+    };
+
+    updateCharacter = (character) => {
+        this.characterList = this.characterList.filter(
+            (c) => c.name !== character.name
+        );
+        this.addCharacter(character);
+    };
+
+    orderList() {
+        this.characterList.sort((a, b) => {
             if (a.initiative > b.initiative) {
                 return -1;
             } else if (a.initiative < b.initiative) {
@@ -13,10 +24,10 @@ export class Tracker {
                 return 0;
             }
         });
-    };
+    }
 
-    currentPlayer = () => {
-        return this.characters[this.currentPlayerIndex];
+    currentCharacter = () => {
+        return this.characterList[this.currentPlayerIndex];
     };
 
     moveToNextPlayer() {

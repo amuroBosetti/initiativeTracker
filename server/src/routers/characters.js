@@ -24,4 +24,16 @@ charactersRouter.post("/", (req, res) => {
     res.send();
 });
 
+charactersRouter.put("/players", (req, res) => {
+    const lcd = new LCD({
+        controller: "PCF8574",
+    });
+
+    tracker.updateCharacter(req.body);
+    refreshScreen(lcd, tracker);
+
+    res.status(200);
+    res.send();
+});
+
 export default charactersRouter;
