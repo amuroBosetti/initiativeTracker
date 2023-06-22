@@ -5,6 +5,7 @@ import path from "path";
 import {dirname} from "path";
 import {fileURLToPath} from 'url';
 import tracker from "./model/tracker.js";
+import cors from "cors";
 
 const {Board, LCD, Button} = pkg;
 
@@ -15,10 +16,11 @@ const board = new Board();
 
 const app = express();
 app.use(bodyParser.json())
+app.use(cors())
 
 const refreshScreen = (lcd, tracker) => {
     lcd.clear()
-    const {name, initiative, color} = tracker.currentPlayer();
+    const {name, initiative, color} = tracker.currentCharacter();
     lcd.print(`${name}: ${initiative} - ${color}`);
 };
 
@@ -44,7 +46,14 @@ board.on('ready', () => {
     });
 
     app.post("/players", (req, res) => {
-        tracker.addPlayer(req.body);
+        tracker.addCharacter(req.body);
+        refreshScreen(lcd, tracker);
+        res.status(200)
+        res.send();
+    });
+
+    app.put("/players", (req, res) => {
+        tracker.updateCharacter(req.body);
         refreshScreen(lcd, tracker);
         res.status(200)
         res.send();

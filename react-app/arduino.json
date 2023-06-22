@@ -1,0 +1,122 @@
+{
+  "uuid": "c9a76d37-0e42-4179-81be-a43b838b8a19",
+  "lastMigration": 27,
+  "name": "Arduino",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 8000,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "3a81346b-6336-4297-9847-e89fbf0019bb",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "players",
+      "responses": [
+        {
+          "uuid": "ce2f1684-f8d5-4266-bfc0-fde165a98134",
+          "body": "[\n  {\n    \"name\": \"Jorge\",\n    \"initiative\": 20,\n    \"color\": \"RED\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "c32553ae-314e-4767-beb4-fcda15b9d8df",
+      "type": "http",
+      "documentation": "",
+      "method": "put",
+      "endpoint": "players",
+      "responses": [
+        {
+          "uuid": "6e8eb629-8f45-4370-8a79-214559d67c48",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "3a81346b-6336-4297-9847-e89fbf0019bb"
+    },
+    {
+      "type": "route",
+      "uuid": "c32553ae-314e-4767-beb4-fcda15b9d8df"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": []
+}
