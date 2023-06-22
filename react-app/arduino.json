@@ -17,7 +17,7 @@
       "responses": [
         {
           "uuid": "ce2f1684-f8d5-4266-bfc0-fde165a98134",
-          "body": "[\n  {\n    \"name\": \"Jorge\",\n    \"initiative\": 20,\n    \"color\": \"RED\"\n  }\n]",
+          "body": "[\n  {\n    \"name\": \"Jorge\",\n    \"initiative\": 20,\n    \"color\": \"RED\"\n  },\n  \n  {\n    \"name\": \"Thyago\",\n    \"initiative\": 20,\n    \"color\": \"RED\"\n  },\n  \n  {\n    \"name\": \"Luiz\",\n    \"initiative\": 45,\n    \"color\": \"Blue\"\n  }\n  \n]",
           "latency": 0,
           "statusCode": 200,
           "label": "",
