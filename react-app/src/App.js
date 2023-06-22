@@ -1,34 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import "./styles.css";
-import axios from "axios";
-
-const Character = ({character}) => {
-    return <p> {`${character.name} : ${character.initiative} - ${character.color}`} </p>;
-};
-
-const CharacterList = () => {
-    const [characters, setCharacters] = useState([])
-
-    useEffect(() => {
-        axios.get('http://localhost:8000/players')
-            .then((result) => {
-                setCharacters(result.data);
-            })
-    }, [])
-
-    return (
-        <ul>
-            {characters.map(character => {
-                return <Character character={character}/>
-            })}
-        </ul>
-    )
-};
+import {Route, Routes} from "react-router-dom";
+import {Admin} from "./routes/Admin.js";
 
 export default function App() {
     return (
-        <div>
-            <CharacterList/>
-        </div>
+        <Routes>
+            <Route path="/admin" element={<Admin/>}/>
+        </Routes>
     );
 }

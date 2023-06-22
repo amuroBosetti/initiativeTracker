@@ -3,8 +3,17 @@ class Tracker {
 
     currentPlayerIndex = 0;
 
-    addPlayer = (player) => {
-        this.characterList.push(player);
+    addCharacter = (character) => {
+        this.characterList.push(character);
+        this.orderList();
+    };
+
+    updateCharacter = (character) => {
+        this.characterList = this.characterList.filter((c) => c.name !== character.name)
+        this.addCharacter(character)
+    };
+
+    orderList() {
         this.characterList.sort((a, b) => {
             if (a.initiative > b.initiative) {
                 return -1;
@@ -14,8 +23,9 @@ class Tracker {
                 return 0;
             }
         });
-    };
-    currentPlayer = () => {
+    }
+
+    currentCharacter = () => {
         return this.characterList[this.currentPlayerIndex];
     };
 

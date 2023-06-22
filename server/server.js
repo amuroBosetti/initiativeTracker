@@ -44,7 +44,14 @@ board.on('ready', () => {
     });
 
     app.post("/players", (req, res) => {
-        tracker.addPlayer(req.body);
+        tracker.addCharacter(req.body);
+        refreshScreen(lcd, tracker);
+        res.status(200)
+        res.send();
+    });
+
+    app.put("/players", (req, res) => {
+        tracker.updateCharacter(req.body);
         refreshScreen(lcd, tracker);
         res.status(200)
         res.send();
