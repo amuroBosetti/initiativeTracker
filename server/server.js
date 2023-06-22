@@ -55,10 +55,6 @@ board.on('ready', () => {
         res.send(tracker.characterList)
     })
 
-    app.get("/admin", (req, res) => {
-        res.sendFile(path.join(__dirname, "..", "build", "index.html"));
-    })
-
     forwardButton.on("press", () => {
         tracker.moveToNextPlayer()
         refreshScreen(lcd, tracker)
