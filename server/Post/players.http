@@ -13,9 +13,9 @@ POST http://localhost:8000/players
 Content-Type: application/json
 
 {
-"name": "Thyago",
-"initiative": 24,
-"color":"red"
+    "name": "Thyago",
+    "initiative": 24,
+    "color":"red"
 }
 
 ###
@@ -23,9 +23,9 @@ POST http://localhost:8000/players
 Content-Type: application/json
 
 {
-  "name": "Mauro",
-  "initiative": 10,
-  "color": "red"
+    "name": "Mauro",
+    "initiative": 10,
+    "color": "red"
 }
 
 ###
