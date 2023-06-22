@@ -1,13 +1,13 @@
-import tracker from "../../model/tracker.js";
+import tracker from "../../src/model/tracker";
 
 const resetTracker = () => {
-    tracker.characterList = [];
-    tracker.currentPlayerIndex = 0;
+    tracker.characters = [];
+    tracker.currentCharacterIndex = 0;
 };
 
 describe("Tracker", () => {
     test("when a new player is added to an empty tracker, then that player is the current one", () => {
-        tracker.characterList = [];
+        resetTracker();
         const player = { name: "Juan", initiative: 15, color: "Red" };
 
         tracker.addCharacter(player);
@@ -70,30 +70,29 @@ describe("Tracker", () => {
         const thirdPlayer = { name: "Belu", initiative: 10, color: "Pink" };
 
         beforeEach(() => {
-            tracker.characterList = [];
-            tracker.currentPlayerIndex = 0;
+            resetTracker();
             tracker.addCharacter(firstPlayer);
             tracker.addCharacter(secondPlayer);
             tracker.addCharacter(thirdPlayer);
         });
 
         test("when the curren players turn is passed, then it is the turn of the current player", () => {
-            tracker.moveToNextPlayer();
+            tracker.moveToNextCharacter();
 
             expect(tracker.currentCharacter()).toEqual(secondPlayer);
         });
 
         test("when the curren players is the last one, and the turn is passed, then it is the turn of the first player", () => {
-            tracker.moveToNextPlayer();
-            tracker.moveToNextPlayer();
+            tracker.moveToNextCharacter();
+            tracker.moveToNextCharacter();
 
-            tracker.moveToNextPlayer();
+            tracker.moveToNextCharacter();
 
             expect(tracker.currentCharacter()).toEqual(firstPlayer);
         });
 
         test("when the current player is the first one, and the turn is passed backwards, then it is the turn of the last player", () => {
-            tracker.moveToPreviousPlayer();
+            tracker.moveToPreviousCharacter();
 
             expect(tracker.currentCharacter()).toEqual(thirdPlayer);
         });

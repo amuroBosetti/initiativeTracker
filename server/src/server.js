@@ -21,7 +21,7 @@ board.on("ready", () => {
     });
     lcd.on();
 
-    const forwardButton = new Button({ pin: 3, isPullup: true });
+    const forwardButton = new Button({ pin: 2, isPullup: true });
     const backButton = new Button({ pin: 4, isPullup: true });
 
     forwardButton.on("press", () => {
@@ -30,7 +30,7 @@ board.on("ready", () => {
     });
 
     backButton.on("press", () => {
-        tracker.moveToPreviousPlayer();
+        tracker.moveToPreviousCharacter();
         refreshScreen(lcd, tracker);
     });
 
