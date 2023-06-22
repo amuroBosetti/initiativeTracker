@@ -2,9 +2,11 @@
     "name": "initiative-tracker",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "src/server.js",
     "scripts": {
-        "test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage"
+        "start": "node ./src/server.js",
+        "dev": "nodemon ./src/server.js",
+        "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage"
     },
     "keywords": [],
     "author": "",
@@ -14,13 +16,15 @@
         "body-parser": "^1.20.2",
         "cors": "^2.8.5",
         "express": "^4.18.2",
-        "johnny-five": "^2.1.0"
+        "johnny-five": "^2.1.0",
+        "serialport": "^8.0.8"
     },
     "devDependencies": {
-        "jest": "^29.5.0"
+        "cross-env": "^7.0.3",
+        "jest": "^29.5.0",
+        "nodemon": "^2.0.22"
     },
     "engines": {
-        "npm": ">=8.0.0",
-        "node": "^18.0.0"
+        "node": ">=18.0.0"
     }
 }
