@@ -16,10 +16,7 @@
         "body-parser": "^1.20.2",
         "express": "^4.18.2",
         "johnny-five": "^2.1.0",
-        "serialport": "^11.0.0"
-    },
-    "overrides": {
-        "serialport": "^11.0.0"
+        "serialport": "^8.0.8"
     },
     "devDependencies": {
         "cross-env": "^7.0.3",
