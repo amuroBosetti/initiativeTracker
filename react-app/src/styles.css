@@ -1,0 +1,33 @@
+.character-table {
+    list-style-type: none;
+    padding: 0;
+    margin: 0; 
+    background-color: #353030; 
+    border-radius: 5px; /*minHeight: '100vh'*/
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .character {
+    padding: 10px;
+    border-bottom: solid #dddddd;
+  }
+
+  .button {
+    background-color: #ff0000; /* Cor de fundo */
+    color: #ffffff; /* Cor do texto */
+    padding: 1px 15px; /* Espaçamento interno */
+    border: none; /* Remover a borda */
+    border-radius: 20px; /* Arredondar as bordas */
+    font-size: 15px; /* Tamanho da fonte */
+    cursor: pointer; /* Alterar o cursor ao passar o mouse */
+  }
+  
+  .button:hover {
+    background-color: #cc0000; /* Cor de fundo ao passar o mouse */
+  }
+   
+  
+
+
+
+  

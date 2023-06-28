@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 
+
 const Character = ({character}) => {
     const [name, setName] = useState(character.name)
     const [initiative, setInitiative] = useState(character.initiative)
@@ -31,7 +32,7 @@ const Character = ({character}) => {
         }).then(() => setHasBeenEdited(false))
     }
 
-    return <div>
+    return <div className="character">
         <input type="text" value={name} onChange={handleNameChange}/>
         <input type="number" value={initiative} onChange={handleInitiativeChange}/>
         <select value={color} onChange={handleColorChange}>
@@ -39,7 +40,7 @@ const Character = ({character}) => {
             <option value="GREEN">VERDE</option>
             <option value="BLUE">AZUL</option>
         </select>
-        {hasBeenEdited && <button onClick={handleSubmit}>Guardar</button>}
+        {hasBeenEdited && <button className="button" onClick={handleSubmit}>Guardar</button>}
     </div>;
 };
 const CharacterList = () => {
@@ -52,12 +53,17 @@ const CharacterList = () => {
             })
     }, [])
 
-    return (<ul>
+    return (<ul className="character-table">
             {characters.map(character => {
                 return <Character character={character}/>
             })}
         </ul>)
 };
-export const Admin = () => (<div>
+export const Admin = () => (
+    <div>
         <CharacterList/>
-    </div>);
+    </div>);  
+
+  
+
+
