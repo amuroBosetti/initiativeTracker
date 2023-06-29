@@ -25,8 +25,17 @@ charactersRouter.post("/", (req, res) => {
         isAnode: true
     });
 
+    const nextTurnRGB = new Led.RGB({
+        pins: {
+            red: 9,
+            green: 10,
+            blue: 11
+        },
+        isAnode: true
+    });
+
     tracker.addCharacter(req.body);
-    refreshDashboard(lcd, currentTurnRGB, tracker);
+    refreshDashboard(lcd, currentTurnRGB, nextTurnRGB, tracker);
 
     res.status(200);
     res.send();
@@ -45,8 +54,17 @@ charactersRouter.put("/", (req, res) => {
         isAnode: true
     });
 
+    const nextTurnRGB = new Led.RGB({
+        pins: {
+            red: 9,
+            green: 10,
+            blue: 11
+        },
+        isAnode: true
+    });
+
     tracker.updateCharacter(req.body);
-    refreshDashboard(lcd, currentTurnRGB, tracker);
+    refreshDashboard(lcd, currentTurnRGB, nextTurnRGB, tracker);
 
     res.status(200);
     res.send();

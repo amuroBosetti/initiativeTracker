@@ -29,19 +29,28 @@ board.on("ready", () => {
         },
         isAnode: true
     });
+    const nextTurnRGB = new Led.RGB({
+        pins: {
+            red: 9,
+            green: 10,
+            blue: 11
+        },
+        isAnode: true
+    });
     currentTurnRGB.on()
+    nextTurnRGB.on()
 
     const forwardButton = new Button({pin: 2, isPullup: true});
     const backButton = new Button({pin: 4, isPullup: true});
 
     forwardButton.on("press", () => {
         tracker.moveToNextCharacter();
-        refreshDashboard(lcd, currentTurnRGB, tracker);
+        refreshDashboard(lcd, currentTurnRGB, nextTurnRGB, tracker);
     });
 
     backButton.on("press", () => {
         tracker.moveToPreviousCharacter();
-        refreshDashboard(lcd, currentTurnRGB, tracker);
+        refreshDashboard(lcd, currentTurnRGB, nextTurnRGB, tracker);
     });
 
     app.listen(8000, () => {

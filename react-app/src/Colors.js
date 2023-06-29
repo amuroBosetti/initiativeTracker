@@ -19,4 +19,8 @@ export const colors = [
         value: "WHITE",
         displayName: "BLANCO"
     },
+    {
+        value: "YELLOW",
+        displayName: "AMARILLO"
+    },
 ];

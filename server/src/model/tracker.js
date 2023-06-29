@@ -30,12 +30,12 @@ export class Tracker {
         return this.characters[this.currentCharacterIndex];
     };
 
+    nextCharacter = () => {
+        return this.characters[this.nextCharacterIndex()];
+    };
+
     moveToNextCharacter() {
-        if (this.currentCharacterIndex === this.characters.length - 1) {
-            this.currentCharacterIndex = 0;
-        } else {
-            this.currentCharacterIndex++;
-        }
+        this.currentCharacterIndex = this.nextCharacterIndex();
     }
 
     moveToPreviousCharacter() {
@@ -43,6 +43,14 @@ export class Tracker {
             this.currentCharacterIndex = this.characters.length - 1;
         } else {
             this.currentCharacterIndex--;
+        }
+    }
+
+    nextCharacterIndex() {
+        if (this.currentCharacterIndex === this.characters.length - 1) {
+            return 0;
+        } else {
+            return this.currentCharacterIndex + 1;
         }
     }
 }
