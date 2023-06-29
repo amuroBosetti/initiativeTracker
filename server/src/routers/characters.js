@@ -1,8 +1,8 @@
 import { Router } from "express";
 import pkg from "johnny-five";
 import tracker from "../model/tracker.js";
-import refreshScreen from "../screen.js";
-const { LCD } = pkg;
+import refreshDashboard from "../dashboard.js";
+const { LCD, Led } = pkg;
 
 const charactersRouter = Router();
 
@@ -16,21 +16,37 @@ charactersRouter.post("/", (req, res) => {
     const lcd = new LCD({
         controller: "PCF8574",
     });
+    const currentTurnRGB = new Led.RGB({
+        pins: {
+            red: 3,
+            green: 5,
+            blue: 6
+        },
+        isAnode: true
+    });
 
     tracker.addCharacter(req.body);
-    refreshScreen(lcd, tracker);
+    refreshDashboard(lcd, currentTurnRGB, tracker);
 
     res.status(200);
     res.send();
 });
 
-charactersRouter.put("/players", (req, res) => {
+charactersRouter.put("/", (req, res) => {
     const lcd = new LCD({
         controller: "PCF8574",
     });
+    const currentTurnRGB = new Led.RGB({
+        pins: {
+            red: 3,
+            green: 5,
+            blue: 6
+        },
+        isAnode: true
+    });
 
     tracker.updateCharacter(req.body);
-    refreshScreen(lcd, tracker);
+    refreshDashboard(lcd, currentTurnRGB, tracker);
 
     res.status(200);
     res.send();

@@ -4,7 +4,7 @@ Content-Type: application/json
 {
     "name": "Pablo",
     "initiative": 14,
-    "color":"red"
+    "color":"RED"
 }
 
 ###
@@ -14,7 +14,7 @@ Content-Type: application/json
 {
     "name": "Thyago",
     "initiative": 24,
-    "color":"red"
+    "color":"BLUE"
 }
 
 ###
@@ -24,7 +24,7 @@ Content-Type: application/json
 {
     "name": "Mauro",
     "initiative": 10,
-    "color": "red"
+    "color": "GREEN"
 }
 
 ###

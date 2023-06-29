@@ -4,9 +4,9 @@ import express from "express";
 import pkg from "johnny-five";
 import tracker from "./model/tracker.js";
 import charactersRouter from "./routers/characters.js";
-import refreshScreen from "./screen.js";
+import refreshDashboard from "./dashboard.js";
 
-const { Board, LCD, Button } = pkg;
+const {Board, LCD, Button, Led} = pkg;
 
 const board = new Board();
 
@@ -21,17 +21,27 @@ board.on("ready", () => {
     });
     lcd.on();
 
-    const forwardButton = new Button({ pin: 2, isPullup: true });
-    const backButton = new Button({ pin: 4, isPullup: true });
+    const currentTurnRGB = new Led.RGB({
+        pins: {
+            red: 3,
+            green: 5,
+            blue: 6
+        },
+        isAnode: true
+    });
+    currentTurnRGB.on()
+
+    const forwardButton = new Button({pin: 2, isPullup: true});
+    const backButton = new Button({pin: 4, isPullup: true});
 
     forwardButton.on("press", () => {
         tracker.moveToNextCharacter();
-        refreshScreen(lcd, tracker);
+        refreshDashboard(lcd, currentTurnRGB, tracker);
     });
 
     backButton.on("press", () => {
         tracker.moveToPreviousCharacter();
-        refreshScreen(lcd, tracker);
+        refreshDashboard(lcd, currentTurnRGB, tracker);
     });
 
     app.listen(8000, () => {
