@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import axios from "axios";
 import {ColorSelector} from "./Admin.js";
 
-export function Player() {
+export const Player = () => {
     const [name, setName] = useState('')
     const [initiative, setInitiative] = useState(0)
     const [color, setColor] = useState("RED")
@@ -38,4 +38,4 @@ export function Player() {
         <ColorSelector color={color} changeColor={handleColorChange}/>
         {hasBeenEdited && <button className="button" onClick={handleSubmit}>Guardar</button>}
     </div>;
-}
+};
