@@ -2,8 +2,6 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 
 import {colors} from "../Colors.js";
-import {Player} from "./Player.js";
-
 
 export const ColorSelector = ({color, changeColor}) => {
     const options = colors.map(c => {
@@ -14,98 +12,103 @@ export const ColorSelector = ({color, changeColor}) => {
     </select>
 };
 
-const Character = ({character}) => {
-    const [name, setName] = useState(character.name)
-    const [initiative, setInitiative] = useState(character.initiative)
-    const [color, setColor] = useState(character.color)
-
+const Character = ({character, onSave}) => {
+    const [tempCharacter, setTempCharacter] = useState({
+        name: character.name,
+        initiative: character.initiative,
+        color: character.color
+    })
     const [hasBeenEdited, setHasBeenEdited] = useState(false)
 
-    const handleNameChange = (event) => {
-        setName(event.target.value)
-        setHasBeenEdited(true)
-    }
+    useEffect(() => {
+        setTempCharacter(character)
+    }, [character])
 
-    const handleInitiativeChange = (event) => {
-        setInitiative(event.target.value)
-        setHasBeenEdited(true)
-    }
-
-    const handleColorChange = (event) => {
-        setColor(event.target.value)
-        setHasBeenEdited(true)
-    }
+    const updateTempCharacter = ({name = character.name, initiative = character.initiative, color = character.color}) => {
+        setTempCharacter({
+            name,
+            initiative,
+            color
+        })
+        setHasBeenEdited(true);
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault()
         axios.put('http://localhost:8000/players', {
-            name, initiative, color
-        }).then(() => setHasBeenEdited(false))
+            tempCharacter
+        }).then(() => onSave())
+    }
+
+    const handleDelete = (event) => {
+        event.preventDefault();
+        axios.delete('http://localhost:8000/players', {
+            name: character.name
+        }).then(() => {
+            onSave()
+        })
     }
 
     return <div className="character">
-        <input type="text" value={name} onChange={handleNameChange}/>
-        <input type="number" value={initiative} onChange={handleInitiativeChange}/>
-        <ColorSelector color={color} changeColor={handleColorChange}/>
+        <input type="text" value={tempCharacter.name} onChange={(event) => updateTempCharacter({name: event.target.value})}/>
+        <input type="number" value={tempCharacter.initiative} onChange={(event) => updateTempCharacter({initiative: event.target.value})}/>
+        <ColorSelector color={tempCharacter.color} changeColor={(event) => updateTempCharacter({color: event.target.value})}/>
         {hasBeenEdited && <button className="button" onClick={handleSubmit}>Guardar</button>}
+        <button className="button" onClick={handleDelete}>Borrar</button>
     </div>;
 };
 const CharacterList = () => {
     const [characters, setCharacters] = useState([])
-    const [createFlag, setCreateFlag] = useState(false)
 
-    useEffect(() => {
+    const fetchCharacters = () => {
         axios.get('http://localhost:8000/players')
             .then((result) => {
                 setCharacters(result.data);
-                setCreateFlag(false)
             })
-    }, [createFlag])
+    };
+
+    useEffect(() => {
+        fetchCharacters();
+    }, [])
 
     return (<ul className="character-table">
         {characters.map(character => {
-            return <Character character={character}/>
+            return <li key={character.name}><Character character={character} onSave={fetchCharacters}/></li>
         })}
-        <CharacterAdder setCreateFlag={setCreateFlag}/>
+        <CharacterAdder onSave={fetchCharacters}/>
     </ul>)
 };
 
-const CharacterAdder = ({setCreateFlag}) => {
-    const [name, setName] = useState('')
-    const [initiative, setInitiative] = useState(0)
-    const [color, setColor] = useState("RED")
+const CharacterAdder = ({onSave}) => {
+    const [character, setCharacter] = useState({
+        name: '',
+        initiative: 0,
+        color: "RED"
+    })
     const [hasBeenEdited, setHasBeenEdited] = useState(false)
 
-    const handleNameChange = (event) => {
-        setName(event.target.value)
+    const updateCharacter = ({name = character.name, initiative = character.initiative, color = character.color}) => {
+        setCharacter({
+            name,
+            initiative,
+            color
+        })
         setHasBeenEdited(true)
-    }
-
-    const handleInitiativeChange = (event) => {
-        setInitiative(event.target.value)
-        setHasBeenEdited(true)
-    }
-
-    const handleColorChange = (event) => {
-        setColor(event.target.value)
-        setHasBeenEdited(true)
-    }
+    };
 
     const handleSubmit = (event) => {
         event.preventDefault()
         axios.post('http://localhost:8000/players', {
-            name,
-            initiative,
-            color
+            ...character
         }).then(() => {
             setHasBeenEdited(false);
-            setCreateFlag(true)
+            onSave()
         })
     }
     return <div style={{display: 'flex'}}>
-        <input className="player-input" type="text" value={name} onChange={handleNameChange}/>
-        <input className="player-input" type="number" value={initiative} onChange={handleInitiativeChange}/>
-        <ColorSelector color={color} changeColor={handleColorChange}/>
+        <input className="player-input" type="text" value={character.name} onChange={(event) => updateCharacter({name: event.target.value})}/>
+        <input className="player-input" type="number" value={character.initiative} onChange={(event) => updateCharacter({initiative: event.target.valueAsNumber})}/>
+        <ColorSelector color={character.color} changeColor={(event) => updateCharacter({color: event.target.value})}/>
         {hasBeenEdited && <button className="button" onClick={handleSubmit}>Guardar</button>}
     </div>
 };

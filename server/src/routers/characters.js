@@ -70,4 +70,33 @@ charactersRouter.put("/", (req, res) => {
     res.send();
 });
 
+charactersRouter.delete('/', (req, res) => {
+    const lcd = new LCD({
+        controller: "PCF8574",
+    });
+    const currentTurnRGB = new Led.RGB({
+        pins: {
+            red: 3,
+            green: 5,
+            blue: 6
+        },
+        isAnode: true
+    });
+
+    const nextTurnRGB = new Led.RGB({
+        pins: {
+            red: 9,
+            green: 10,
+            blue: 11
+        },
+        isAnode: true
+    });
+
+    tracker.removeCharacter(req.body);
+    refreshDashboard(lcd, currentTurnRGB, nextTurnRGB, tracker);
+
+    res.status(200);
+    res.send();
+})
+
 export default charactersRouter;

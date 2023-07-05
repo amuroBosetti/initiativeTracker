@@ -53,6 +53,13 @@ export class Tracker {
             return this.currentCharacterIndex + 1;
         }
     }
+
+    removeCharacter({name}) {
+        this.characters = this.characters.filter(
+            (c) => c.name !== name
+        );
+        this.orderList()
+    }
 }
 
 const tracker = new Tracker();

@@ -17,7 +17,7 @@
       "responses": [
         {
           "uuid": "ce2f1684-f8d5-4266-bfc0-fde165a98134",
-          "body": "[\n  {\n    \"name\": \"Jorge\",\n    \"initiative\": 20,\n    \"color\": \"RED\"\n  },\n  \n  {\n    \"name\": \"Thyago\",\n    \"initiative\": 20,\n    \"color\": \"RED\"\n  },\n  \n  {\n    \"name\": \"Luiz\",\n    \"initiative\": 45,\n    \"color\": \"Blue\"\n  }\n  \n]",
+          "body": "[\n  {\n    \"name\": \"Jorge\",\n    \"initiative\": 20,\n    \"color\": \"RED\"\n  },\n  \n  {\n    \"name\": \"Thyago\",\n    \"initiative\": 0,\n    \"color\": \"RED\"\n  },\n  \n  {\n    \"name\": \"Luiz\",\n    \"initiative\": 45,\n    \"color\": \"Blue\"\n  }\n  \n]",
           "latency": 0,
           "statusCode": 200,
           "label": "",
@@ -63,6 +63,62 @@
       ],
       "enabled": true,
       "responseMode": null
+    },
+    {
+      "uuid": "4a72718e-d2fb-4ca0-a3d6-85db5194e7e6",
+      "type": "http",
+      "documentation": "",
+      "method": "delete",
+      "endpoint": "players",
+      "responses": [
+        {
+          "uuid": "df06babb-8bce-494c-b077-dd3f4432c793",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "0d522130-e2e3-40eb-ac8a-ac288518b107",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "players",
+      "responses": [
+        {
+          "uuid": "4a87b4e1-7e8f-492e-889f-49a7df62aff1",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
     }
   ],
   "rootChildren": [
@@ -73,6 +129,14 @@
     {
       "type": "route",
       "uuid": "c32553ae-314e-4767-beb4-fcda15b9d8df"
+    },
+    {
+      "type": "route",
+      "uuid": "4a72718e-d2fb-4ca0-a3d6-85db5194e7e6"
+    },
+    {
+      "type": "route",
+      "uuid": "0d522130-e2e3-40eb-ac8a-ac288518b107"
     }
   ],
   "proxyMode": false,
