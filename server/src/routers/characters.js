@@ -70,7 +70,7 @@ charactersRouter.put("/", (req, res) => {
     res.send();
 });
 
-charactersRouter.delete('/', (req, res) => {
+charactersRouter.post('/remove', (req, res) => {
     const lcd = new LCD({
         controller: "PCF8574",
     });

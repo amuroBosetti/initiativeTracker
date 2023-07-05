@@ -2,6 +2,10 @@ export class Tracker {
     characters = [];
     currentCharacterIndex = 0;
 
+    isEmpty = () => {
+        return this.characters.length === 0
+    }
+
     addCharacter = (character) => {
         this.characters.push(character);
         this.orderList();

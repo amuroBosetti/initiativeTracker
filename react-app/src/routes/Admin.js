@@ -42,7 +42,7 @@ const Character = ({character, onSave}) => {
 
     const handleDelete = (event) => {
         event.preventDefault();
-        axios.delete('http://localhost:8000/players', {
+        axios.post('http://localhost:8000/players/remove', {
             name: character.name
         }).then(() => {
             onSave()
