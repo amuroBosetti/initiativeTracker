@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import axios from "axios";
 import {ColorSelector} from "./Admin.js";
+import Imagen from './components/images/d&d.jpg'
 
 export const Player = () => {
     const [name, setName] = useState('')
@@ -32,10 +33,20 @@ export const Player = () => {
         }).then(() => setHasBeenEdited(false))
     }
 
-    return <div className="player">
-        <input className="player-input" type="text" value={name} onChange={handleNameChange}/>
-        <input className="player-input" type="number" value={initiative} onChange={handleInitiativeChange}/>
-        <ColorSelector color={color} changeColor={handleColorChange}/>
-        {hasBeenEdited && <button className="button" onClick={handleSubmit}>Guardar</button>}
-    </div>;
+    return (
+        <div className="container">
+          <div className="player">
+            <label htmlFor="nameInput">Nombre</label>
+            <input className="player-input" type="text" value={name} onChange={handleNameChange} placeholder="Introduce tu nombre o apodo"/>
+            <label htmlFor="nameInput">Iniciativa</label>
+            <input className="player-input" type="number" value={initiative} onChange={handleInitiativeChange}/>
+            <label htmlFor="nameInput">Color</label>
+            <ColorSelector color={color} changeColor={handleColorChange}/> 
+            {hasBeenEdited && <button className="button" onClick={handleSubmit}>Listo</button>}
+          </div>
+          <section className="section-imagem">
+            <img src={Imagen}/>
+          </section>
+        </div>
+    );
 };
