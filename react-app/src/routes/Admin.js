@@ -80,11 +80,13 @@ const CharacterList = () => {
 };
 
 const CharacterAdder = ({onSave}) => {
-    const [character, setCharacter] = useState({
+    const emptyCharacter = {
         name: '',
         initiative: 0,
         color: "RED"
-    })
+    };
+
+    const [character, setCharacter] = useState(emptyCharacter)
     const [hasBeenEdited, setHasBeenEdited] = useState(false)
 
     const updateCharacter = ({name = character.name, initiative = character.initiative, color = character.color}) => {
@@ -102,6 +104,7 @@ const CharacterAdder = ({onSave}) => {
             ...character
         }).then(() => {
             setHasBeenEdited(false);
+            setCharacter(emptyCharacter)
             onSave()
         })
     }
