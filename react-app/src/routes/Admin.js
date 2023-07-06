@@ -42,11 +42,10 @@ const Character = ({character, onSave}) => {
 
     const handleDelete = (event) => {
         event.preventDefault();
-        axios.post('http://localhost:8000/players/remove', {
-            name: character.name
-        }).then(() => {
-            onSave()
-        })
+        axios.delete(`http://localhost:8000/players/${character.name}`)
+            .then(() => {
+                onSave()
+            })
     }
 
     return <div className="character">
@@ -121,7 +120,3 @@ export const Admin = () => {
         <CharacterList/>
     </div>
 };
-
-
-
-

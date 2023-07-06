@@ -58,7 +58,7 @@ export class Tracker {
         }
     }
 
-    removeCharacter({name}) {
+    removeCharacter(name) {
         this.characters = this.characters.filter(
             (c) => c.name !== name
         );

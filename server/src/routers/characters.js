@@ -70,7 +70,7 @@ charactersRouter.put("/", (req, res) => {
     res.send();
 });
 
-charactersRouter.post('/remove', (req, res) => {
+charactersRouter.delete('/:name', (req, res) => {
     const lcd = new LCD({
         controller: "PCF8574",
     });
@@ -92,7 +92,7 @@ charactersRouter.post('/remove', (req, res) => {
         isAnode: true
     });
 
-    tracker.removeCharacter(req.body);
+    tracker.removeCharacter(req.params.name);
     refreshDashboard(lcd, currentTurnRGB, nextTurnRGB, tracker);
 
     res.status(200);
