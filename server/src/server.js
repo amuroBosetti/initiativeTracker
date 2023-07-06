@@ -2,11 +2,11 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import express from "express";
 import pkg from "johnny-five";
+import refreshDashboard from "./dashboard.js";
 import tracker from "./model/tracker.js";
 import charactersRouter from "./routers/characters.js";
-import refreshDashboard from "./dashboard.js";
 
-const {Board, LCD, Button, Led} = pkg;
+const { Board, LCD, Button, Led } = pkg;
 
 const board = new Board();
 
@@ -25,23 +25,23 @@ board.on("ready", () => {
         pins: {
             red: 3,
             green: 5,
-            blue: 6
+            blue: 6,
         },
-        isAnode: true
+        isAnode: true,
     });
     const nextTurnRGB = new Led.RGB({
         pins: {
             red: 9,
             green: 10,
-            blue: 11
+            blue: 11,
         },
-        isAnode: true
+        isAnode: true,
     });
-    currentTurnRGB.on()
-    nextTurnRGB.on()
+    currentTurnRGB.on();
+    nextTurnRGB.on();
 
-    const forwardButton = new Button({pin: 2, isPullup: true});
-    const backButton = new Button({pin: 4, isPullup: true});
+    const forwardButton = new Button({ pin: 2, isPullup: true });
+    const backButton = new Button({ pin: 4, isPullup: true });
 
     forwardButton.on("press", () => {
         tracker.moveToNextCharacter();
@@ -53,7 +53,7 @@ board.on("ready", () => {
         refreshDashboard(lcd, currentTurnRGB, nextTurnRGB, tracker);
     });
 
-    app.listen(8000, () => {
+    app.listen(8000, "0.0.0.0", () => {
         console.log("Listening on port 8000");
     });
 });
