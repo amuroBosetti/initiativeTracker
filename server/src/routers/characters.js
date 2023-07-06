@@ -34,7 +34,8 @@ charactersRouter.post("/", (req, res) => {
         isAnode: true
     });
 
-    tracker.addCharacter(req.body);
+    const {name, initiative, color} = req.body;
+    tracker.addCharacter({name, initiative: parseInt(initiative), color});
     refreshDashboard(lcd, currentTurnRGB, nextTurnRGB, tracker);
 
     res.status(200);
@@ -63,7 +64,8 @@ charactersRouter.put("/", (req, res) => {
         isAnode: true
     });
 
-    tracker.updateCharacter(req.body);
+    const {name, initiative, color} = req.body;
+    tracker.updateCharacter({name, initiative: parseInt(initiative), color});
     refreshDashboard(lcd, currentTurnRGB, nextTurnRGB, tracker);
 
     res.status(200);
