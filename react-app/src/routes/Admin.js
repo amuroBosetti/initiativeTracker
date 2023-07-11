@@ -36,7 +36,7 @@ const Character = ({character, onSave}) => {
     const handleSubmit = (event) => {
         event.preventDefault()
         axios.put('http://localhost:8000/players', {
-            tempCharacter
+            ...tempCharacter
         }).then(() => onSave())
     }
 
