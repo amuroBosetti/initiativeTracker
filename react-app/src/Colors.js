@@ -1,26 +1,26 @@
 export const colors = [
     {
         value: "RED",
-        displayName: "ROJO"
+        displayName: "ROJO",
     },
     {
         value: "BLUE",
-        displayName: "AZUL"
+        displayName: "AZUL",
     },
     {
         value: "GREEN",
-        displayName: "VERDE"
+        displayName: "VERDE",
     },
     {
         value: "PURPLE",
-        displayName: "VIOLETA"
+        displayName: "VIOLETA",
     },
     {
         value: "WHITE",
-        displayName: "BLANCO"
+        displayName: "BLANCO",
     },
     {
         value: "YELLOW",
-        displayName: "AMARILLO"
+        displayName: "AMARILLO",
     },
 ];
